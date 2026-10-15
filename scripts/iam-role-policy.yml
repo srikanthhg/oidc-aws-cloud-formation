@@ -6,7 +6,7 @@ Resources:
   MyRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: MyExampleRole
+      RoleName: MyExampleRole-15-oct-2026
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -21,7 +21,7 @@ Resources:
   # creating a policy
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: MyExamplePolicy
+      PolicyName: MyExamplePolicy-15-oct-2026
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
