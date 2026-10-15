@@ -2,8 +2,13 @@ name: Deploy IAM Role and Policy via CloudFormation
 
 on:
   workflow_dispatch:
+    inputs:
+      stack-name:
+        description: please enter stack name to delete
+        required: false
   push:
     branches: [ main ]
+  
 
 permissions:
   id-token: write
@@ -47,3 +52,7 @@ jobs:
             --template-file $TEMPLATE_PATH \
             --stack-name MyIamStack \
             --capabilities CAPABILITY_NAMED_IAM
+
+      - name: Delete stack
+        run: |
+          aws cloudformation delete-stack --stack-name MyIamStack
