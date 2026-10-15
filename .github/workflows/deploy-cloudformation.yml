@@ -25,12 +25,19 @@ jobs:
       #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     aws-region: us-east-1
 
-      - name: Configure AWS Credentials for China region audience
+      # - name: Configure AWS Credentials for China region audience
+      #   uses: aws-actions/configure-aws-credentials@v6.3.0
+      #   with:
+      #     audience: sts.amazonaws.com.cn
+      #     aws-region: us-east-1
+      #     role-to-assume: arn:aws:iam::608782704145:role/admin-role-for-oicd
+
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          audience: sts.amazonaws.com.cn
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::608782704145:role/admin-role-for-oicd
+          role-session-name: MySessionName
 
       - name: Deploy CloudFormation stack
         run: |
