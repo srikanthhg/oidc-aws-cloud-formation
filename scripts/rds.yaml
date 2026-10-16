@@ -1,6 +1,20 @@
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-rds-dbinstance.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: A sample CloudFormation template with YAML comments.
+
+Parameters:
+  DBUsername:
+    Type: String
+    NoEcho: true
+    Description: Database master username
+
+  DBPassword:
+    Type: String
+    NoEcho: True
+    MinLength: 8
+    Description: Database master password
+    # Add engine-specific password constraints as required.
+    
 # Resources section
 Resources:
   MyRDSInstance:
@@ -14,9 +28,9 @@ Resources:
       DBInstanceIdentifier: my-postgres-db # name of the db
       Engine: postgres
       EngineVersion: '18'
-      MasterUsername: 'dbadmin'
-      ManageMasterUserPassword: true
-      PubliclyAccessible: false
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true
       StorageEncrypted: true
       DeletionProtection: false
       StorageType: gp3
