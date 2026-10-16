@@ -8,6 +8,7 @@ on:
         required: false
         type: choice
         options:
+          - validate
           - create
           - delete
           
@@ -34,6 +35,7 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        if: ${{ inputs.stack-name == 'validate' }}
         run: |
           aws cloudformation validate-template \
             --template-body file://$(pwd)/scripts/rds.yml
