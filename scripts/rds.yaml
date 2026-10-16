@@ -1,0 +1,25 @@
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-rds-dbinstance.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: A sample CloudFormation template with YAML comments.
+# Resources section
+Resources:
+  MyRDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: '20'
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 7
+      DBInstanceClass: db.t3.medium
+      DBInstanceIdentifier: my-postgres-db # name of the db
+      Engine: postgres
+      EngineVersion: '18'
+      MasterUsername: 'dbadmin'
+      ManageMasterUserPassword: true
+      PubliclyAccessible: false
+      StorageEncrypted: true
+      DeletionProtection: false
+      StorageType: gp3
+      Tags: 
+        - Key: Environment
+          Value: Devlopment
