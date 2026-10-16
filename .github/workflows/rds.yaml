@@ -38,7 +38,7 @@ jobs:
         if: ${{ inputs.stack-name == 'validate' }}
         run: |
           aws cloudformation validate-template \
-            --template-body file://$(pwd)/scripts/rds.yml
+            --template-body file://$(pwd)/scripts/rds.yaml
 
       - name: Deploy CloudFormation stack
         env:
@@ -46,7 +46,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         if: ${{ inputs.stack-name == 'create' }}
         run: |
-          TEMPLATE_PATH=$(pwd)/scripts/rds.yml
+          TEMPLATE_PATH=$(pwd)/scripts/rds.yaml
           echo "Deploying from: $TEMPLATE_PATH"
           aws cloudformation deploy \
             --template-file $TEMPLATE_PATH \
