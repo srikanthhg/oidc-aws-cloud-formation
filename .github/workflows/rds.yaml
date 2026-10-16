@@ -47,11 +47,11 @@ jobs:
         if: ${{ inputs.stack-name == 'create' }}
         run: |
 
-          # TEMPLATE_PATH=$(pwd)/scripts/rds.yaml
-          # STACK_NAME="my-rds-stack"
-          # echo "Deploying from: $TEMPLATE_PATH"
-          # status=(aws cloudformation describe-stacks --stack-name "STACK_NAME" --query "Stacks[0].StackStatus" --output text 2>/dev/null || echo "NOT_FOUND")
-          # if [ "$status" = "ROLLBACK_COMPLETE" ]; then echo "Stack $STACK_NAME is in ROLLBACK_COMPLETE — deleting before deploy..." aws cloudformation delete-stack --stack-name "$STACK_NAME" aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME" echo "Deleted $STACK_NAME." elif [ "$status" != "NOT_FOUND" ]; then echo "Stack $STACK_NAME exists with status: $status — will attempt update via deploy." else echo "Stack $STACK_NAME not found — will create it." fi
+          TEMPLATE_PATH=$(pwd)/scripts/rds.yaml
+          STACK_NAME="my-rds-stack"
+          echo "Deploying from: $TEMPLATE_PATH"
+          status=(aws cloudformation describe-stacks --stack-name "STACK_NAME" --query "Stacks[0].StackStatus" --output text 2>/dev/null || echo "NOT_FOUND")
+          if [ "$status" = "ROLLBACK_COMPLETE" ]; then echo "Stack $STACK_NAME is in ROLLBACK_COMPLETE — deleting before deploy..." aws cloudformation delete-stack --stack-name "$STACK_NAME" aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME" echo "Deleted $STACK_NAME." elif [ "$status" != "NOT_FOUND" ]; then echo "Stack $STACK_NAME exists with status: $status — will attempt update via deploy." else echo "Stack $STACK_NAME not found — will create it." fi
         
           # TEMPLATE_PATH=$(pwd)/scripts/rds.yaml
           # echo "Deploying from: $TEMPLATE_PATH"
