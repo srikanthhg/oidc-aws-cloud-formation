@@ -31,11 +31,17 @@ jobs:
           role-session-name: MyRDSSession
 
       - name: Validate Template
+        env:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           aws cloudformation validate-template \
             --template-body file://$(pwd)/scripts/rds.yml
 
       - name: Deploy CloudFormation stack
+        env:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         if: ${{ inputs.stack-name == 'create' }}
         run: |
           TEMPLATE_PATH=$(pwd)/scripts/rds.yml
@@ -43,7 +49,10 @@ jobs:
           aws cloudformation deploy \
             --template-file $TEMPLATE_PATH \
             --stack-name my-rds-stack \
-            --capabilities CAPABILITY_NAMED_IAM
+            --capabilities CAPABILITY_NAMED_IAM \
+            --parameter-overrides \
+              DBUsername="$DB_USERNAME" \
+              DBPassword="$DB_PASSWORD"
 
       - name: Delete stack
         if: ${{ inputs.stack-name == 'delete' }}
